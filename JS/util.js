@@ -102,13 +102,14 @@ function calculate(numbers, operators) {
 
 
 /**
- * 将带下划线的字符串转换为驼峰命名法
+ * 将字符串转换为小驼峰命名法
  * @param {string} inputString - 需要转换的字符串
- * @returns {string} - 转换后的驼峰命名法字符串
+ * @returns {string} - 转换后的小驼峰命名法字符串
  */
 function convertToCamelCase(inputString) {
-  return inputString.replace(/_([a-z])/g, function (match) {
-    // 将匹配到的下划线后的小写字母转换为大写字母
-    return match[1].toUpperCase();
+  return inputString.replace(/_([a-z])/g, function (match, group1) {
+    return group1.toUpperCase();
+  }).replace(/^(.)/, function (match, group1) {
+    return group1.toLowerCase();
   });
 }
