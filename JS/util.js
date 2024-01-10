@@ -102,14 +102,18 @@ function calculate(numbers, operators) {
 
 
 /**
-  * 将字符串转换为小驼峰命名法
+  * 将字符串转换为小驼峰命名法,如果没有下划线分割直接返回当前值
   * @param {string} inputString - 需要转换的字符串
   * @returns {string} - 转换后的小驼峰命名法字符串
   */
 convertToCamelCase(inputString) {
-  return inputString.replace(/_(\w)/g, function (match, group1) {
-    return group1.toUpperCase();
-  }).replace(/^[A-Z]/, function (match) {
-    return match.toLowerCase();
-  });
+  if (inputString.includes('_')) {
+    let str = inputString.toLowerCase()
+    str = inputString.trim().replace(/#/g, 'Num')
+    str = str.replace(/_(\w)/g, function (match, group1) {
+      return group1.toUpperCase();
+    });
+    return str
+  }
+  return inputString
 }
