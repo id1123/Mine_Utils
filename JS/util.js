@@ -1,6 +1,6 @@
 
 export {
-  
+
 }
 
 // 表单校验
@@ -102,14 +102,14 @@ function calculate(numbers, operators) {
 
 
 /**
- * 将字符串转换为小驼峰命名法
- * @param {string} inputString - 需要转换的字符串
- * @returns {string} - 转换后的小驼峰命名法字符串
- */
-function convertToCamelCase(inputString) {
-  return inputString.replace(/_([a-z])/g, function (match, group1) {
+  * 将字符串转换为小驼峰命名法
+  * @param {string} inputString - 需要转换的字符串
+  * @returns {string} - 转换后的小驼峰命名法字符串
+  */
+convertToCamelCase(inputString) {
+  return inputString.replace(/_(\w)/g, function (match, group1) {
     return group1.toUpperCase();
-  }).replace(/^(.)/, function (match, group1) {
-    return group1.toLowerCase();
+  }).replace(/^[A-Z]/, function (match) {
+    return match.toLowerCase();
   });
 }
