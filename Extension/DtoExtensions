@@ -1,0 +1,51 @@
+using System;
+using System.Reflection;
+
+namespace Core.Helpers
+{
+    public static class DtoExtensions 
+    {
+        /// <summary>
+        /// 取并集,以primary参数为主
+        /// </summary>
+        /// <param name="primary"></param>
+        /// <param name="fill"></param>
+        /// <returns></returns>
+        public static T Intersect<T>(T primary, T fill)
+        {
+            T mergedObject = (T)Activator.CreateInstance(typeof(T));
+            PropertyInfo[] properties = typeof(T).GetProperties();
+
+            foreach (var property in properties)
+            {
+                var primaryValue = property.GetValue(primary);
+                if (primaryValue is null)
+                {
+                    var fillValue = property.GetValue(fill);
+                    property.SetValue(mergedObject, fillValue);
+                }
+                else
+                {
+                    property.SetValue(mergedObject, primaryValue);
+                }
+            }
+            return mergedObject;
+        }
+
+        /// <summary>
+        /// 通过反射根据父类创建子类
+        /// </summary>
+        /// <param name="src"></param>
+        /// <param name="des"></param>
+        public static void SynchronizationProperties(object src, object des)
+        {
+            Type srcType = src.GetType();
+            object val;
+            foreach (var item in srcType.GetProperties())
+            {
+                val = item.GetValue(src);
+                item.SetValue(des, val);
+            }
+        }
+    }
+}
